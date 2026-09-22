@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../dockerhubregcred.yaml
+  - secret-mysql-api.yaml
+  - secret-mysql-abdv2.yaml
+  - configmap.yaml
+  - deployment.yaml
+  - service.yaml
+images:
+  - name: afloresmansilla/backend-clientes-mklens
+    newTag: latest

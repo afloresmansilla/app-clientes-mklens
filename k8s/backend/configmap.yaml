@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-clientes-mklens
+  labels:
+    app: backend-clientes-mklens
+data:
+  PORT: "3080"
+  NODE_ENV: production
+  LOGOS_DIR: /app/logos
+  MYSQL_DATABASE: marketlens_clientes
+  LENS_MYSQL_DATABASE: lensrewards
+  EXTRACT_MYSQL_DATABASE: extracciones
+  API_MYSQL_DATABASE: apiv2

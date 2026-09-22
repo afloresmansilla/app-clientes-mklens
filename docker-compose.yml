@@ -1,0 +1,26 @@
+services:
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: afloresmansilla/backend-clientes-mklens:local
+    ports:
+      - "3080:3080"
+    env_file:
+      - ./server/.env
+    environment:
+      PORT: "3080"
+      NODE_ENV: production
+      LOGOS_DIR: /app/logos
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: afloresmansilla/frontend-clientes-mklens:local
+    ports:
+      - "8080:80"
+    environment:
+      BACKEND_URL: http://backend:3080
+    depends_on:
+      - backend

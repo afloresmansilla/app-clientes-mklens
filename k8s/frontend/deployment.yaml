@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-clientes-mklens
+  labels:
+    app: frontend-clientes-mklens
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-clientes-mklens
+  template:
+    metadata:
+      labels:
+        app: frontend-clientes-mklens
+    spec:
+      imagePullSecrets:
+        - name: dockerhubregcred
+      containers:
+        - name: frontend
+          image: afloresmansilla/frontend-clientes-mklens:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 80
+          env:
+            - name: BACKEND_URL
+              value: http://backend-clientes-mklens:3080
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 10
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 20
+            timeoutSeconds: 2
+          resources:
+            requests:
+              cpu: 20m
+              memory: 32Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
