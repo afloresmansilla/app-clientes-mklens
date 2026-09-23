@@ -8,13 +8,13 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: 50m
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
-    # cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: letsencrypt
 spec:
   ingressClassName: nginx
-  # tls:
-  #   - hosts:
-  #       - app.marketlenshq.com
-  #     secretName: frontend-clientes-mklens-tls
+  tls:
+    - hosts:
+        - app.marketlenshq.com
+      secretName: frontend-clientes-mklens-tls
   rules:
     - host: app.marketlenshq.com
       http:

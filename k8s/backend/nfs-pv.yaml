@@ -1,0 +1,22 @@
+# Cambia server y path por los de tu export NFS.
+# El export debe ser RW y los ficheros legibles (chmod 644 / dirs 755).
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: logos-nfs
+  labels:
+    app: logos-nfs
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: logos-nfs
+  mountOptions:
+    - nfsvers=4.1
+    - hard
+    - noatime
+  nfs:
+    server: 10.15.27.90
+    path: /mnt/logos-documentos-mklens/logos

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: logos-nfs
+  labels:
+    app: logos-nfs
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: logos-nfs
+  resources:
+    requests:
+      storage: 5Gi
+  volumeName: logos-nfs

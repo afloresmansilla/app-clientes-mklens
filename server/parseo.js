@@ -50,7 +50,8 @@ function money(value) {
 function logoUrl(file) {
   const name = String(file || "").trim().split(/[/\\]/).pop();
   if (!name || !LOGO_RE.test(name)) return "";
-  return "/logos/" + name;
+  const base = String(process.env.LOGOS_PUBLIC_BASE || "").replace(/\/$/, "");
+  return (base || "") + "/logos/" + name;
 }
 
 function historyKey(brand, modality) {

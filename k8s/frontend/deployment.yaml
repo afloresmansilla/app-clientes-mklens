@@ -16,6 +16,10 @@ spec:
     spec:
       imagePullSecrets:
         - name: dockerhubregcred
+      volumes:
+        - name: logos
+          persistentVolumeClaim:
+            claimName: logos-nfs
       containers:
         - name: frontend
           image: afloresmansilla/frontend-clientes-mklens:latest
@@ -23,6 +27,10 @@ spec:
           ports:
             - name: http
               containerPort: 80
+          volumeMounts:
+            - name: logos
+              mountPath: /logos
+              readOnly: true
           env:
             - name: BACKEND_URL
               value: http://backend-clientes-mklens:3080

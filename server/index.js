@@ -262,9 +262,12 @@ async function getStudyLogo(req, res) {
   try {
     const logo = await loadProjectLogo(req.params.id);
     if (!logo || !logo.data) return res.status(404).end();
+    const buf = Buffer.isBuffer(logo.data) ? logo.data : Buffer.from(logo.data);
+    if (!buf.length) return res.status(404).end();
     res.set("Content-Type", logo.mime || "image/png");
     res.set("Cache-Control", "public, max-age=86400");
-    res.send(logo.data);
+    res.set("Content-Length", String(buf.length));
+    res.end(buf);
   } catch (err) {
     if (catalogUnavailable(err)) return res.status(404).end();
     console.error(err);

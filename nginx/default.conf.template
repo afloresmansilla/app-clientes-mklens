@@ -28,10 +28,7 @@ server {
     }
 
     location /logos/ {
-        proxy_pass ${BACKEND_URL};
-        proxy_http_version 1.1;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
+        alias /logos/;
         expires 7d;
         add_header Cache-Control "public";
     }

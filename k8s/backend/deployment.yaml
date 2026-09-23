@@ -16,6 +16,10 @@ spec:
     spec:
       imagePullSecrets:
         - name: dockerhubregcred
+      volumes:
+        - name: logos
+          persistentVolumeClaim:
+            claimName: logos-nfs
       containers:
         - name: backend
           image: afloresmansilla/backend-clientes-mklens:latest
@@ -23,6 +27,9 @@ spec:
           ports:
             - name: http
               containerPort: 3080
+          volumeMounts:
+            - name: logos
+              mountPath: /app/logos
           envFrom:
             - configMapRef:
                 name: backend-clientes-mklens
@@ -30,22 +37,22 @@ spec:
             - name: MYSQL_HOST
               valueFrom:
                 secretKeyRef:
-                  name: mysql-api
+                  name: mysql-clientes
                   key: host
             - name: MYSQL_PORT
               valueFrom:
                 secretKeyRef:
-                  name: mysql-api
+                  name: mysql-clientes
                   key: port
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
-                  name: mysql-api
+                  name: mysql-clientes
                   key: username
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mysql-api
+                  name: mysql-clientes
                   key: password
             - name: LENS_MYSQL_HOST
               valueFrom:
